@@ -1,4 +1,4 @@
-namespace HangfireForDotNer;
+namespace HangfireForDotNet;
 
 public class Program
 {

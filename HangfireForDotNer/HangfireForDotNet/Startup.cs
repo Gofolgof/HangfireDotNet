@@ -1,7 +1,10 @@
 using Hangfire;
+using Hangfire.PostgreSql;
+using HangfireForDotNet.Domain.Database;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
-namespace HangfireForDotNer;
+namespace HangfireForDotNet;
 
 public class Startup
 {
@@ -17,6 +20,11 @@ public class Startup
         
     public void ConfigureServices(IServiceCollection services)
     {
+        var confDb = Configuration["Data:DatabaseConnection:ConnectionString"];
+        services.AddDbContext<DatabaseContext>(options =>
+            options.UseNpgsql(confDb));
+            
+        services.AddHangfire(x => x.UsePostgreSqlStorage(confDb));
         services.AddHangfireServer();
             
         services.AddControllers();
