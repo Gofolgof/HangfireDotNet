@@ -1,3 +1,6 @@
+using HangfireForDotNet.Domain.Database;
+using Microsoft.EntityFrameworkCore;
+
 namespace HangfireForDotNet;
 
 public class Program
@@ -5,6 +8,13 @@ public class Program
     public static void Main(string[] args)
     {
         var host = CreateHostBuilder(args).Build();
+        
+        using (var scope = host.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+            db.Database.Migrate();
+        }
+        
         host.Run();
     }
 
