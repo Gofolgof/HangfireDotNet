@@ -27,4 +27,16 @@ public class HangfireControllers : ControllerBase
     {
         return _backgroundTask.CreateQuickBackgroundTask(name);
     }
+
+    /// <summary>
+    /// Создание отложенной фоновой задачи
+    /// </summary>
+    /// <param name="text">текст для сообщения</param>
+    /// <param name="minutes">через сколько отправить фоновую задачу</param>
+    /// <returns></returns>
+    [HttpPost("DelayBackgroundTask/{text}/{minutes}")]
+    public Task<string> CreateDelayBackgroundTask([FromRoute] string text, [FromRoute] int minutes)
+    {
+        return _backgroundTask.CreateDelayBackgroundTask(text, minutes);
+    }
 }

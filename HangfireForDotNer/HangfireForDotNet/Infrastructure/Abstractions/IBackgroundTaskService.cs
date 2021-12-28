@@ -11,4 +11,12 @@ public interface IBackgroundTaskService
     /// <param name="name">имя</param>
     /// <returns></returns>
     Task<string> CreateQuickBackgroundTask(string name);
+
+    /// <summary>
+    /// Создание отложенной фоновой задачи
+    /// </summary>
+    /// <param name="text">текст для задачи</param>
+    /// <param name="minutes">через сколько отправить фоновую задачу</param>
+    /// <returns></returns>
+    Task<string> CreateDelayBackgroundTask(string text, int minutes);
 }

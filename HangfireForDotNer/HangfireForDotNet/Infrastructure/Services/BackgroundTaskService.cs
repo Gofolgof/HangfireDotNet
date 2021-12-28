@@ -25,4 +25,13 @@ public class BackgroundTaskService : IBackgroundTaskService
 
         return Task.FromResult(jobId);
     }
+
+    /// <inheritdoc cref="IBackgroundTaskService.CreateDelayBackgroundTask"/>
+    public Task<string> CreateDelayBackgroundTask(string text, int minutes)
+    {
+        var jobId = BackgroundJob.Schedule(() => Console.WriteLine(text), TimeSpan.FromMinutes(minutes));
+        _logger.LogInformation($"Job with id - {jobId} start");
+
+        return Task.FromResult(jobId);
+    }
 }
